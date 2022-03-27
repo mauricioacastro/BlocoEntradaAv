@@ -9,17 +9,46 @@
 #Fluxo de Exceção:
 #o	O programa deve verificar se a nota da pessoa é maior ou igual a zero e menor ou igual a dez.
 
-#Exemplo de saída do programa:
-#o	Informe nome do 1º participante: Zefrônio
-#o	Informe nota do 1º participante: 8.5
-#o	Informe nome do 2º participante: Oliúde
-#o	Informe nota do 2º participante: 6.0
-#o	Informe nome do 3º participante: Xonotrônfila
-#o	Informe nota do 3º participante: 7.8
-#o	Informe nome do 4º participante: Carbúncleo
-#o	Informe nota do 4º participante: 8.6
-#o	Informe nome do 5º participante: Zeugma
-#o	Informe nota do 5º participante: 9.4
-#o	O(a) vencedor(a) foi Zeugma com nota 9.4!
+
+notaP1 = 0
+notaP2 = 0
+notaP3 = 0
+notaP4 = 0
+notaP5 = 0
+notaVencedor = 0
 
 
+participante1 = input("Informe nome do 1º participante: ")
+notaP1 = float(input("Informe nota do 1º participante: "))
+    
+if notaP1 > notaVencedor:
+    notaVencedor = notaP1
+    vencedor = participante1 
+
+participante2 = input("Informe nome do 2º participante: ")
+notaP2 = float(input("Informe nota do 2º participante: "))
+if notaP2 > notaVencedor:
+    notaVencedor = notaP2
+    vencedor = participante2 
+
+participante3 = input("Informe nome do 3º participante: ")
+notaP3 = float(input("Informe nota do 3º participante: "))
+if notaP3 > notaVencedor:
+    notaVencedor = notaP3
+    vencedor = participante3 
+
+participante4 = input("Informe nome do 4º participante: ")
+notaP4 = float(input("Informe nota do 4º participante: "))
+if notaP4 > notaVencedor:
+    notaVencedor = notaP4
+    vencedor = participante4 
+
+participante5 = input("Informe nome do 5º participante: ")
+notaP5 = float(input("Informe nota do 5º participante: "))
+if notaP5 > notaVencedor:
+    notaVencedor = notaP5
+    vencedor = participante5 
+
+
+
+print ("O vencedor(a) foi", vencedor,"com nota",notaVencedor,"!")

@@ -8,7 +8,7 @@ idade = int(input("Informe a idade: "))
 
 if idade < 1:
     print("Idade" ,idade, "esta incorreta")
-elif idade > 0 and idade < 10:
+elif idade > 0 and idade < 17:
     print("Não tem direito a voto." )
 elif idade > 17 and idade < 70:
     print("Tem obrigação de votar." )
