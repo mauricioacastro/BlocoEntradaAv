@@ -1,54 +1,30 @@
 # Função : Eleitor
 # Autor : Maurício Castro
-# Data : 27/03/2022
+# Data : 29/03/2022
 
-#Em um concurso de fantasias, os jurados precisam digitar os nomes dos 5 participantes e suas respectivas notas, 
-# variando de 0 até 10. Crie uma função que leia os nomes dos participantes e, ao final, apresente apenas o nome
-# e a nota do vencedor.
+# Questão 03 - TP3
+# Em um concurso de fantasias, os jurados precisam digitar os nomes dos 5 participantes e suas respectivas notas, variando de 0 até 10. 
+#Crie uma função que leia os nomes dos participantes e, ao final, apresente apenas o nome e a nota do vencedor.
 
-#Fluxo de Exceção:
-#o	O programa deve verificar se a nota da pessoa é maior ou igual a zero e menor ou igual a dez.
+# Fluxo de exceção: 
+# O programa deve verificar se a nota da pessoa é maior ou igual a zero e menor ou igual a dez.
 
-
-notaP1 = 0
-notaP2 = 0
-notaP3 = 0
-notaP4 = 0
-notaP5 = 0
-notaVencedor = 0
-
-
-participante1 = input("Informe nome do 1º participante: ")
-notaP1 = float(input("Informe nota do 1º participante: "))
+def fantasia(participantes):
+    for i in range(participantes):
+        nome = input(f"\nNome do participante: ")
+        nota = float(input("Nota do participante: "))
+        while nota < 0 or nota > 10:
+            nota = float(input("Nota inválida - deve estar entre 0 e 10.\nNota do participante: "))
+            
+        if i==0:
+            nomeVencedor = nome
+            notaVencedor = nota
+        elif nota > notaVencedor:
+            nomeVencedor = nome
+            notaVencedor = nota
     
-if notaP1 > notaVencedor:
-    notaVencedor = notaP1
-    vencedor = participante1 
+    print(f"\nO(A) vencedor(a) foi: {nomeVencedor}, com a nota {notaVencedor}")
+    print("--------- FIM ---------")
+print("\n--- CONCURSO DE FANTASIAS ---")
 
-participante2 = input("Informe nome do 2º participante: ")
-notaP2 = float(input("Informe nota do 2º participante: "))
-if notaP2 > notaVencedor:
-    notaVencedor = notaP2
-    vencedor = participante2 
-
-participante3 = input("Informe nome do 3º participante: ")
-notaP3 = float(input("Informe nota do 3º participante: "))
-if notaP3 > notaVencedor:
-    notaVencedor = notaP3
-    vencedor = participante3 
-
-participante4 = input("Informe nome do 4º participante: ")
-notaP4 = float(input("Informe nota do 4º participante: "))
-if notaP4 > notaVencedor:
-    notaVencedor = notaP4
-    vencedor = participante4 
-
-participante5 = input("Informe nome do 5º participante: ")
-notaP5 = float(input("Informe nota do 5º participante: "))
-if notaP5 > notaVencedor:
-    notaVencedor = notaP5
-    vencedor = participante5 
-
-
-
-print ("O vencedor(a) foi", vencedor,"com nota",notaVencedor,"!")
+fantasia(5)
