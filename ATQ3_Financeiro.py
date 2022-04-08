@@ -10,7 +10,7 @@
 #Portanto, idealmente, o máximo de sua renda comprometida com {tipo} deveria ser de R$ {valor_max}
 #Onde tipo deve ser moradia, educação ou transportes e valor_max deve ser o valor equivalente ao percentual máximo de gasto com esse tipo de custo.
 
-def imprimirGasto(tipo, percentualMaximo, gasto, renda):
+def imprimirGasto(tipo, percentualMaximo,gasto,renda):
     percentual=calcularPercentual(gasto,renda)
     msg = obterMensagem(gasto,renda,percentualMaximo,percentual)
     print(f"Seus gastos totais com {tipo} comprometem {percentual}% de sua renda total. O máximo recomendado é de {percentualMaximo}%. {msg}")
@@ -22,7 +22,7 @@ def calcularValorMaximo(renda,percentualMaximo):
     return renda * percentualMaximo / 100
 
 def obterMensagem(gasto,renda,percentualMaximo,percentual):
-    msg = "Seus gastos estão dentro da margem recomendada."
+    msg = "\nSeus gastos estão dentro da margem recomendada."
     if percentual > percentualMaximo:
         msg = f"\nPortanto, idealmente, o máximo de sua renda comprometida com moradia deveria ser de R$ {calcularValorMaximo(renda,percentualMaximo)}."
     return msg
@@ -40,5 +40,7 @@ print(30*"-")
 print("        Diagnóstico")
 print(30*"-")
 imprimirGasto("moradia",percentualMaximoMoradia,gastoMoradia,rendaMensal)
+print(30*"-")
 imprimirGasto("educação",percentualMaximoEducacao,gastoEducacao,rendaMensal)
+print(30*"-")
 imprimirGasto("transporte",percentualMaximoTransporte,gastoTransporte,rendaMensal)
