@@ -1,4 +1,4 @@
-# Função : Dados um valor de renda mensal total
+# Função : Planejamento financeiro pessoal
 # Autor : Maurício Castro
 # Data : 07/04/2022
 

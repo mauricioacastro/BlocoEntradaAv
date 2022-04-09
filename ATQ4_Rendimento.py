@@ -1,6 +1,6 @@
-# Função : Dados um valor de renda mensal total
+# Função : Rendimento de aporte mensal
 # Autor : Maurício Castro
-# Data : 07/04/2022
+# Data : 09/04/2022
 
 #Questão 04 - AT
 #Assim, suponha que você possui R$10.000 iniciais, consegue aportar R$1.000 por mês e obtém um rendimento de 0,54% ao mês. Por simplicidade, suponha que você faz o aporte após o rendimento no período acontecer.
@@ -10,50 +10,69 @@
 
 #A.	Crie um programa que ponha a hipótese de Einstein à prova. Em uma função, receba, como entrada, um montante financeiro inicial, um percentual de rendimento por período, um valor de aporte para cada período e uma quantidade de períodos.
 
-#Exemplo de saída do programa:
-#Valor inicial: R$ 10000
-#Rendimento por período (%): 0.54
-#Aporte a cada período: R$ 1000
-#Total de períodos: 120 
+def pontoVirgula(valor):
+    a = '{:,.2f}'.format(float(valor))
+    b = a.replace(',','v')
+    c = b.replace('.',',')
+    return c.replace('v','.')
 
-#Após 1 períodos(s), o montante será de R$11054.00.
-#Após 2 períodos(s), o montante será de R$12113.69.
-#Após 3 períodos(s), o montante será de R$13179.11.
-#Após 4 períodos(s), o montante será de R$14250.27.
-#Após 5 períodos(s), o montante será de R$15327.22.
-#(...)
-#Após 115 períodos(s), o montante será de R$177406.76.
-#Após 116 períodos(s), o montante será de R$179364.76.
-#Após 117 períodos(s), o montante será de R$181333.33.
-#Após 118 períodos(s), o montante será de R$183312.53.
-#Após 119 períodos(s), o montante será de R$185302.42.
-#Após 120 períodos(s), o montante será de R$187303.05.
+def hipotese_einstein(valorInicial,rendimento,aporte,periodo):
+    print(f" Valor inicial informado: R$ ",pontoVirgula(valorInicial))
+    print(f" Rendimento por periodo informado: ",rendimento,"%")
+    print(f" Aporte a cada periodo: R$ ",pontoVirgula(aporte))
+    print(f" Total de periodos: ",periodo)
+    print("")
+ 
+    meses = []
+    valorMensal = []
+    montante = valorInicial
+    for i in range(periodo):
+        montante = (montante + (montante*(rendimento/100))) + aporte
+        print(f"Após",i+1,"períodos(s), o montante será de R$ ",pontoVirgula(montante),".")
+        meses.append(i+1)
+        valorMensal.append(round(montante,2))
+            
+try:
+    valorInicial = round(float(input(f"Informe o valor inicial (exemplo: 10000): R$ ").replace(",",".")),2)    
+except ValueError:
+    valorInicial = 'a'
 
+while valorInicial == 'a' or valorInicial < 0:
+    try:
+        valorInicial = round(float(input(f"Ops, você não informou um valor válido, digite um valor inicial válido (exemplo: 10000): R$ ").replace(",",".")),2)
+    except ValueError:
+        valorInicial = 'a'
 
-def impressao():
-    print(f"Valor inicial: R${valor}")
-    print(f"Rendimento por período (%):{rendimento}")
-    print(f"Aporte a cada período: R${aportePeriodo}")
-    print(f"Total de períodos:{periodo}")
+try:
+    rendimento = round(float(input(f"Informe a porcentagem de rendimento por período (exemplo: 0.54): ").replace(",",".")),2)    
+except ValueError:
+    rendimento = 'b'
 
-def taxa():
-    aTaxa = valor * rendimento / 100
-    return aTaxa
+while rendimento == 'b' or (rendimento <= 0 and rendimento >= 100):
+    try:
+        rendimento = round(float(input(f"Ops, você não informou um valor válido, digite um valor da porcentagem do rendimento mensal válido (exemplo: 0.54): ").replace(",",".")),2)
+    except ValueError:
+        rendimento = 'b'
 
-valor = float(input("Informe o valor inicial: R$"))
-rendimento = float(input("Informe a porcentagem de rendimento por período (%):"))
-aportePeriodo = float(input("Informe o valor de aporte de cada período: R$:"))
-periodo = int(input("Informe o total de período:"))
-cont = 0
-valorTaxado = 0
+try:
+    aporte = round(float(input(f"Informe o valor de aporte de cada período (exemplo: 1000): R$: ").replace(",",".")),2)    
+except ValueError:
+    aporte = 'c'
 
-impressao()
-taxa()
+while aporte == 'c':
+    try:
+        aporte = round(float(input(f"Ops, você não informou um valor válido, digite um valor do aporte mensal válido (exemplo: 1000,00): R$ ").replace(",",".")),2)
+    except ValueError:
+        aporte = 'c'        
 
-while cont < periodo:
-    cont += 1
-    valor += taxa()
-    valor += aportePeriodo
-    print(f"Após {cont} períodos, o montante será de R${valor:.2f}.")
+try:
+    periodo = int(input(f"Informe o total de período (exemplo: 120): "))
+except ValueError:
+    periodo = 'd'
 
-print("FIM")
+while aporte == 'd' or periodo <= 0:
+    try:
+        periodo = int(input(f"Ops, você não informou um valor válido, digite um valor válido de meses (exemplo: 42): "))
+    except ValueError:
+        periodo = 'd'
+hipotese_einstein(valorInicial,rendimento,aporte,periodo)
