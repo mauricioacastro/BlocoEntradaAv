@@ -10,37 +10,99 @@
 #Portanto, idealmente, o máximo de sua renda comprometida com {tipo} deveria ser de R$ {valor_max}
 #Onde tipo deve ser moradia, educação ou transportes e valor_max deve ser o valor equivalente ao percentual máximo de gasto com esse tipo de custo.
 
-def imprimirGasto(tipo, percentualMaximo,gasto,renda):
-    percentual=calcularPercentual(gasto,renda)
-    msg = obterMensagem(gasto,renda,percentualMaximo,percentual)
-    print(f"Seus gastos totais com {tipo} comprometem {percentual}% de sua renda total. O máximo recomendado é de {percentualMaximo}%. {msg}")
+def pontoVirgula(valor):
+    a = '{:,.2f}'.format(float(valor))
+    b = a.replace(',','v')
+    c = b.replace('.',',')
+    return c.replace('v','.')
 
-def calcularPercentual(gasto,renda):
-    return gasto * 100 / renda
+def diagnosticar(rendaMensal,aluguel,educacao,transporte):
+    print(f" RESULTADO:")
+    print(f"-"*100)
+    p_aluguel = (aluguel/rendaMensal)*100
+    m_aluguel = (rendaMensal*0.3)
+    if p_aluguel <= 30:
+        print(f" MORADIA:")
+        print(f" Seus gastos totais com moradia comprometem {p_aluguel:.2f}% de sua renda total. O máximo recomendado é de 30%.")
+        print(f" Portanto, seu gasto com moradia no valor de R$ ",pontoVirgula(aluguel)," está dentro da margem recomendada.")
+        print(f"-"*100)
+    else:
+        print(f" MORADIA:")
+        print(f" Seus gastos totais com moradia comprometem {p_aluguel:.2f}% de sua renda total. O máximo recomendado é de 30%.")
+        print(f" Portanto, idealmente, o máximo de sua renda comprometida deveria ser de R$ ",pontoVirgula(m_aluguel),".")
+        print(f"-"*100)
+        
+    p_educacao = (educacao/rendaMensal)*100
+    m_educacao = (rendaMensal*0.2)
+    if p_educacao <= 20:
+        print(f" EDUCAÇÃO:")
+        print(f" Seus gastos totais com educação comprometem {p_educacao:.2f}% de sua renda total. O máximo recomendado é de 20%.")
+        print(f" Portanto, seu gasto com educação no valor de R$ ",pontoVirgula(educacao)," está dentro da margem recomendada.")
+        print(f"-"*100)
+    else:
+        print(f" EDUCAÇÃO:")
+        print(" ")
+        print(f" Seus gastos totais com educação comprometem {p_educacao:.2f}% de sua renda total. O máximo recomendado é de 20%.")
+        print(f" Portanto, idealmente, o máximo de sua renda comprometida deveria ser de R$ ",pontoVirgula(m_educacao),".")
+        print(f"-"*100)
+        
+    p_transporte = (transporte/rendaMensal)*100
+    m_transporte = (rendaMensal*0.15)
+    if p_transporte <= 15:
+        print(f" TRANSPORTE:")
+        print(f" Seus gastos totais com transporte comprometem {p_transporte:.2f}% de sua renda total. O máximo recomendado é de 15%.")
+        print(f" Portanto, seu gasto com transporte no valor de R$ ",pontoVirgula(transporte)," está dentro da margem recomendada.")
+        print(f"-"*100)
+    else:
+        print(f" TRANSPORTE:")
+        print(f" Seus gastos totais com transporte comprometem {p_transporte:.2f}% de sua renda total. O máximo recomendado é de 15%.")
+        print(f" Portanto, idealmente, o máximo de sua renda comprometida deveria ser de R$ ",pontoVirgula(m_transporte),".")
+        print(f"-"*100)
 
-def calcularValorMaximo(renda,percentualMaximo):
-    return renda * percentualMaximo / 100
+print(" Vamos iniciar um diagnostico financeiro! Presisamos que você entre com alguns dados para avalição: ")
 
-def obterMensagem(gasto,renda,percentualMaximo,percentual):
-    msg = "\nSeus gastos estão dentro da margem recomendada."
-    if percentual > percentualMaximo:
-        msg = f"\nPortanto, idealmente, o máximo de sua renda comprometida com moradia deveria ser de R$ {calcularValorMaximo(renda,percentualMaximo)}."
-    return msg
+try:
+    rendaMensal = round(float(input(f"Por gentileza, digite o valor da renda mensal familiar (exemplo: 5000): R$ ").replace(",",".")),2)    
+except ValueError:
+    rendaMensal = 'a'
 
-percentualMaximoMoradia = 30
-percentualMaximoEducacao = 20
-percentualMaximoTransporte = 15
+while rendaMensal == 'a' or rendaMensal <= 0:
+    try:
+        rendaMensal = round(float(input(f"Ops, você não informou um valor válido, digite um valor da renda mensal válido (exemplo: 5000,00): R$ ").replace(",",".")),2)
+    except ValueError:
+        rendaMensal = 'a'
 
-rendaMensal=float(input("Renda mensal total: R$"))
-gastoMoradia=float(input("Gastos totais com moradia: R$"))
-gastoEducacao=float(input("Gastos totais com educação: R$"))
-gastoTransporte=float(input("Gastos totais com transporte: R$"))
+try:
+    aluguel = round(float(input(f"Agora digite o valor do aluguel do imóvel (exemplo: 1760): R$ ").replace(",",".")),2)    
+except ValueError:
+    aluguel = 'b'
 
-print(30*"-")
-print("        Diagnóstico")
-print(30*"-")
-imprimirGasto("moradia",percentualMaximoMoradia,gastoMoradia,rendaMensal)
-print(30*"-")
-imprimirGasto("educação",percentualMaximoEducacao,gastoEducacao,rendaMensal)
-print(30*"-")
-imprimirGasto("transporte",percentualMaximoTransporte,gastoTransporte,rendaMensal)
+while aluguel == 'b' or aluguel <= 0:
+    try:
+        aluguel = round(float(input(f"Ops, você não informou um valor válido, digite um valor do aluguel do imóvel válido (exemplo: 1760,00): R$ ").replace(",",".")),2)
+    except ValueError:
+        aluguel = 'b'
+
+try:
+    educacao = round(float(input(f"Digite o valor do gasto com educação (exemplo: 800): R$ ").replace(",",".")),2)    
+except ValueError:
+    educacao = 'c'
+
+while educacao == 'c' or educacao <= 0:
+    try:
+        educacao = round(float(input(f"Ops, você não informou um valor válido, digite o valor do gasto com educação válido (exemplo: 800,00): R$ ").replace(",",".")),2)
+    except ValueError:
+        educacao = 'c'
+
+try:
+    transporte = round(float(input(f"Digite o valor do gasto com transporte (exemplo: 300): R$ ").replace(",",".")),2)    
+except ValueError:
+    transporte = 'd'
+
+while transporte == 'd' or transporte <= 0:
+    try:
+        transporte = round(float(input(f"Ops, você não informou um valor válido, digite o valor do gasto com transporte válido (exemplo: 300,00): R$ ").replace(",",".")),2)
+    except ValueError:
+        transporte = 'd'
+
+diagnosticar(rendaMensal,aluguel,educacao,transporte)
